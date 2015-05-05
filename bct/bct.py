@@ -1606,19 +1606,19 @@ the main diagonal.
     D = D.copy()
 
     if not include_diagonal:
-        np.fill_diagonal(D, 0)
+        np.fill_diagonal(D, np.inf)
 
     #mean of finite entries of D[G]
     lambda_=np.sum(D[D!=np.inf])/len(np.where(D!=np.inf)[0])	
 
     #eccentricity for each vertex (ignore inf)
-    ecc=np.max(D*(D!=np.inf),axis=1)
+    ecc=np.nanmax(D*(D!=np.inf),axis=1)
 
     #radius of graph
-    radius=np.min(ecc)	#but what about zeros?
+    radius=np.nanmin(ecc)	#but what about zeros?
 
     #diameter of graph
-    diameter=np.max(ecc)
+    diameter=np.nanmax(ecc)
 
     #efficiency: mean of inverse entries of D[G]
     n=len(D)
